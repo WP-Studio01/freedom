@@ -1,0 +1,20 @@
+{
+	"user": "WP-Studio01",
+	"repo": "freedom",
+	"url": "https://wp-studio01.github.io/freedom/",
+	"title": "HelloWorld的公告",
+	"menu": [
+		{
+			"name": "自由讨论",
+			"url": "https://wp-studio01.github.io/freedom/"
+		},
+		{
+			"name": "文章",
+			"url": "https://wp-studio01.github.io/blog/"
+		},
+		{
+			"name": "主页",
+			"url": "https://wp-studio01.github.io/home/"
+		}
+	]
+}
