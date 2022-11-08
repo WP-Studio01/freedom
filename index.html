@@ -119,6 +119,10 @@
 								location.href = json.html_url;
 							}, false);
 						}
+						else
+						{
+							document.getElementById('content').innerHTML = '此帖子可能不存在或已关闭，<a href=\"javascript:window.history.go(-1);\">返回上一页</a>'
+						}
 					}
 				);
 			}
