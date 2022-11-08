@@ -89,33 +89,36 @@
 					'https://api.github.com/repos/' + blog.user + '/' + blog.repo + '/issues/' + getQueryString("id"),
 					function(text) {
 						var json = JSON.parse(text);
-						var str = '';
-						str += '<div class="ui large pointing menu" id="menu">';
-						str += '	<a href="" class="item">自由讨论</a>';
-						str += '	<a href="?id=' + getQueryString("id") + '" class="active item">' + json.title + '</a>';
-						str += '	<div class="right menu">';
-						str += '		<div class="item">';
-						str += '			<button id="github-button" class="ui button">Github</button>';
-						str += '		</div>';
-						str += '	</div>';
-						str += '</div>';
-						str += '<div class="ui segment">';
-						marked.setOptions({
-							highlight: function (code) {
-								return hljs.highlightAuto(code).value;
+						if(json.state=='open')
+						{
+							var str = '';
+							str += '<div class="ui large pointing menu" id="menu">';
+							str += '	<a href="" class="item">自由讨论</a>';
+							str += '	<a href="?id=' + getQueryString("id") + '" class="active item">' + json.title + '</a>';
+							str += '	<div class="right menu">';
+							str += '		<div class="item">';
+							str += '			<button id="github-button" class="ui button">Github</button>';
+							str += '		</div>';
+							str += '	</div>';
+							str += '</div>';
+							str += '<div class="ui segment">';
+							marked.setOptions({
+								highlight: function (code) {
+									return hljs.highlightAuto(code).value;
+								}
+							});
+							str += marked.parse(json.body);
+							str += '</div>';
+							document.getElementById('content').innerHTML = str;
+							for (var i in blog.menu) {
+								var str = document.getElementById('menu').innerHTML;
+								str = '<a href="' + blog.menu[i].url + '" id="home-button" class="item">' + blog.menu[i].name + '</a>' + str;
+								document.getElementById('menu').innerHTML = str;
 							}
-						});
-						str += marked.parse(json.body);
-						str += '</div>';
-						document.getElementById('content').innerHTML = str;
-						for (var i in blog.menu) {
-							var str = document.getElementById('menu').innerHTML;
-							str = '<a href="' + blog.menu[i].url + '" id="home-button" class="item">' + blog.menu[i].name + '</a>' + str;
-							document.getElementById('menu').innerHTML = str;
+							document.getElementById('github-button').addEventListener('click', function() {
+								location.href = json.html_url;
+							}, false);
 						}
-						document.getElementById('github-button').addEventListener('click', function() {
-							location.href = json.html_url;
-						}, false);
 					}
 				);
 			}
